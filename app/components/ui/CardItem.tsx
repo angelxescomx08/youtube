@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Card,
   CardAction,
@@ -8,10 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { ThemeContext } from '@/app/context/ThemeContext'
+import { cn } from '@/lib/utils'
 
 export const CardItem = () => {
+  const { dark } = useContext(ThemeContext)
   return (
-    <Card>
+    <Card className={cn({
+      "dark-style": dark,
+      "white-style": !dark
+    })}>
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
         <CardDescription>Card Description</CardDescription>

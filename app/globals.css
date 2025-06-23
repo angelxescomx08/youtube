@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.dark-style{
+  @apply bg-black text-white;
+}
+
+.white-style{
+  @apply bg-white text-black;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

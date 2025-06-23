@@ -10,6 +10,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useContext } from "react"
+import { ThemeContext } from "@/app/context/ThemeContext"
+import { cn } from "@/lib/utils"
 
 // Menu items.
 const items = [
@@ -41,9 +44,16 @@ const items = [
 ]
 
 export function AppSidebar() {
+  const {dark} = useContext(ThemeContext)
+
   return (
     <Sidebar>
-      <SidebarContent className="bg-white">
+      <SidebarContent className={
+        cn("bg-white",{
+      "dark-style": dark,
+      "white-style": !dark
+    })
+      }>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
