@@ -1,43 +1,31 @@
 "use client"
 
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "./components/ui/AppSidebar";
-import Header from "./components/ui/Header";
-import { CardItem } from "./components/ui/CardItem";
-import { useState } from "react";
-import { ThemeContext } from "./context/ThemeContext";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react";
 
+const numbers = Array.from({ length: 1_000 }, (_, i) => i);
 
 export default function Home() {
 
-  const [dark,setDark] = useState(false)
+  const [count, setCount] = useState(0);
+
+  const elements = useMemo(()=>{
+    return numbers.filter((n) => {
+      return n % 2 === 0;
+    }).map(item=>(
+      <p key={item}>Hola {item}</p>
+    ));
+  },[])
+
 
   return (
-    <ThemeContext.Provider
-      value={{
-        dark,
-        setDark
-      }}
-    >
-      <SidebarProvider>
-        <AppSidebar />
-        <div className="flex flex-col w-full">
-          <Header />
-          <main className={cn("grid p-4 grid-cols-12 gap-4",{
-      "dark-style": dark,
-      "white-style": !dark
-    })}>
-            {
-              Array.from({length: 10}).map((_,i)=>(
-                <div key={i} className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-3">
-                  <CardItem  />
-                </div>
-              ))
-            }
-          </main>
-        </div>
-      </SidebarProvider>
-    </ThemeContext.Provider>
+    <main className="p-4">
+      {elements}
+      <Button 
+        className="mt-4" 
+        onClick={() => setCount(count + 1)}>
+        Incrementar contador: {count}
+      </Button>
+    </main>
   );
 }
