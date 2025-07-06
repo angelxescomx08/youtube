@@ -1,31 +1,38 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { useMemo, useState } from "react";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-const numbers = Array.from({ length: 1_000 }, (_, i) => i);
+function Formulario() {
+  const [value, setValue] = useState("");
+
+  return (
+    <div>
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Escribe aquí"
+        className="mb-2"
+      />
+      <p>Valor: {value}</p>
+    </div>
+  );
+}
+
 
 export default function Home() {
 
-  const [count, setCount] = useState(0);
-
-  const elements = useMemo(()=>{
-    return numbers.filter((n) => {
-      return n % 2 === 0;
-    }).map(item=>(
-      <p key={item}>Hola {item}</p>
-    ));
-  },[])
-
+  const [key, setKey] = useState(1);
 
   return (
     <main className="p-4">
-      {elements}
-      <Button 
-        className="mt-4" 
-        onClick={() => setCount(count + 1)}>
-        Incrementar contador: {count}
+      <Button className="mb-2" onClick={() => {
+        setKey(key + 1);
+      }}>
+        Reset
       </Button>
+      <Formulario key={key} />
     </main>
   );
 }
